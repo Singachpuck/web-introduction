@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Form validation</title>
+</head>
+<body>
+    <main>
+        <!-- 1 - Name, 3 - Group, 5 - ID-Card, 7 - Birth, 9 - e-mail -->
+        <form action="#">
+            <div class="input-wrapper">
+                <input type="text" name="name" placeholder="Full name">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" name="group" placeholder="Group">
+            </div>
+            <div class="input-wrapper">
+                <input name="card" type="text" placeholder="ID-Card">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" name="birth" placeholder="Birth date">
+            </div>
+            <div class="input-wrapper">
+                <input type="text" name="email" placeholder="E-mail">
+            </div>
+            <div>
+                <input class="verify-btn" type="submit" value="Verify">
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

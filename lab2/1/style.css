@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+}
+
+main {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.input-wrapper {
+    margin-bottom: 15px;
+}
+
+.input-wrapper:last-of-type {
+    margin-bottom: 0;
+}
+
+.input-wrapper > input {
+    padding: 5px 10px;
+}
+
+.error-input {
+    border: 1px red solid;
+}
+
+.list-item {
+    margin-bottom: 10px;
+}
+
+.list-item:last-of-type {
+    margin-bottom: 0;
+}

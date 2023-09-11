@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.control-panel {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.user-container {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(5, 20%);
+}
+
+.user {
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.profile-image-container {
+    text-align: center;
+}
+
+.profile-image-container > img {
+    width: 100%;
+    height: auto;
+}
+
+.data-item {
+    font-size: 18px;
+    margin-top: 15px;
+}

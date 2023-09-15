@@ -18,8 +18,9 @@ body {
 }
 
 .block > div {
-    line-height: 100%;
-    padding: calc(50vh - 100px) 0;
+    position: relative;
+    padding: calc(50vh - 88px) 0;
+    overflow: hidden;
 }
 
 .block1 {
@@ -35,6 +36,28 @@ body {
 .block3 {
     background-color: #F094F8;
     width: 30%;
+}
+
+.central-block img {
+    width: 80%;
+}
+
+/* img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+} */
+
+.text, img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 
 .footer {

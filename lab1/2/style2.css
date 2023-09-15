@@ -15,13 +15,16 @@ main {
 }
 
 .block {
+    position: relative;
     font-size: 24px;
     text-align: center;
+    overflow: hidden;
 }
 
 .block > div {
-    line-height: 100%;
     padding: calc(50vh - 100px) 0;
+    line-height: 100%;
+    overflow: hidden;
 }
 
 .block1 {
@@ -37,6 +40,19 @@ main {
 .block3 {
     flex-grow: 1;
     background-color: #F094F8;
+}
+
+.central-block img {
+    width: 70%;
+}
+
+img {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
 
 .footer {

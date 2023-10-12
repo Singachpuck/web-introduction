@@ -16,8 +16,29 @@ async function userExists(email) {
     return await UserModel.exists({ email });
 }
 
+async function updateUser(oldEmail, newEmail) {
+    const exists = await userExists(newEmail);
+    if (exists) {
+        throw new Error(`User ${newEmail} is already registered.`);
+    }
+
+    return await UserModel.updateOne({ email: oldEmail }, { email: newEmail });
+}
+
+async function deleteUser(email) {
+    const exists = userExists(email);
+    
+    if (!exists) {
+        throw new Error(`User ${email} doesn't exist.`);
+    }
+
+    return await UserModel.deleteOne({ email });
+}
+
 module.exports = {
     getUserByEmail,
     createUser,
-    userExists
+    userExists,
+    updateUser,
+    deleteUser
 }

@@ -1,0 +1,14 @@
+body {
+    min-height: 100vh;
+}
+
+.main-content {
+    padding-top: 100px;
+}
+
+#form {
+    border: 1px solid grey;
+    border-radius: 7px;
+    padding: 30px 50px;
+    background-color: #fff;
+}

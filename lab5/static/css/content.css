@@ -1,0 +1,11 @@
+body {
+    min-height: 100vh;
+}
+
+.main-content {
+    padding-top: 50px;
+}
+
+#editEmail {
+    padding: 5px 10px;
+}

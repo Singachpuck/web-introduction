@@ -13,11 +13,7 @@ async function login({ email, password }) {
         throw new Error('Invalid password.');
     }
 
-    return {
-        email: user.email,
-        token: generateJwt(user),
-        expiresIn: 3600
-    };
+    return composeJwt(user);
 }
 
 async function signup({ email, password }) {
@@ -31,7 +27,16 @@ async function signup({ email, password }) {
     createUser(user);
 }
 
+function composeJwt(user) {
+    return {
+        email: user.email,
+        token: generateJwt(user),
+        expiresIn: 3600
+    };
+}
+
 module.exports = {
     login,
-    signup
+    signup,
+    composeJwt
 }

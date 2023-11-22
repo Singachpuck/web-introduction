@@ -42,15 +42,6 @@ body {
     width: 80%;
 }
 
-/* img {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-} */
-
 .text, img {
     position: absolute;
     width: 100%;

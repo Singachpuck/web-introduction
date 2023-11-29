@@ -31,6 +31,7 @@ function composeJwt(user) {
     return {
         email: user.email,
         token: generateJwt(user),
+        scope: user.permissions,
         expiresIn: 3600
     };
 }

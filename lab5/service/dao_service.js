@@ -1,5 +1,13 @@
 const { UserModel, User } = require('./../model/user');
 
+async function getUsers() {
+    let users = await UserModel.find().exec();
+    if (users === null) {
+        return null;
+    } 
+    return users.map(u => new User(u.email, u.password, u.permissions));
+}
+
 async function getUserByEmail(email) {
     let userModel = await UserModel.findOne({ email: email }).exec();
     if (userModel == null) {
@@ -40,5 +48,6 @@ module.exports = {
     createUser,
     userExists,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUsers
 }

@@ -21,8 +21,7 @@ window.onload = () => {
                 passwordInput.classList.add('is-invalid');
             } else {
                 res.json().then(data => {
-                    const obj = JSON.parse(data);
-                    document.cookie = `token=${btoa(data)}; expires=${new Date(Date.now() + obj.expiresIn * 1000)}; path=/`;
+                    document.cookie = `token=${btoa(JSON.stringify(data))}; expires=${new Date(Date.now() + data.expiresIn * 1000)}; path=/`;
                     window.location.href = '/content';
                 }).catch(err => {
                     emailInput.classList.add('is-invalid');

@@ -42,8 +42,7 @@ window.onload = () => {
         }).then(res => {
             if (res.status === 200) {
                 res.json().then(data => {
-                    const obj = JSON.parse(data);
-                    document.cookie = `token=${btoa(data)}; expires=${new Date(Date.now() + obj.expiresIn * 1000)}; path=/`;
+                    document.cookie = `token=${btoa(JSON.stringify(data))}; expires=${new Date(Date.now() + data.expiresIn * 1000)}; path=/`;
                     window.location.reload();
                 });
             }

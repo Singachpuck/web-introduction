@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 
 const { User } = require('./model/user');
 const { login, signup, composeJwt } = require('./service/auth_servise');
-const { createUser, updateUser, deleteUser, getUserByEmail } = require('./service/dao_service');
-const { validateJwtCookie, verifyJwt } = require('./service/secret_util');
+const { createUser, updateUser, deleteUser, getUserByEmail, getUsers } = require('./service/dao_service');
+const { validateJwtCookie, verifyJwt, verifyAdmin } = require('./service/secret_util');
 
 
 const app = express();
@@ -75,12 +75,29 @@ app.get('/logout', (request, response) => {
 app.post('/api/auth/token', async (req, res) => {
     try {
         const tokenPayload = await login(req.body);
-        res.json(JSON.stringify(tokenPayload));
+        res.json(tokenPayload);
     } catch (e) {
-        res.status(400).json(JSON.stringify({
+        res.status(400).json({
             status: 'KO',
             error: e.message
-        }));
+        });
+    }
+});
+
+app.get('/api/users', async (req, res) => {
+    try {
+        if (!verifyAdmin(req)) {
+            return res.status(401).json({
+                status: 'KO',
+                error: 'Invalid JWT'
+            });
+        }
+
+        const users = (await getUsers()).map(u => {return {email: u.email, permissions: u.permissions}});
+        res.json(users);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
     }
 });
 
@@ -88,19 +105,20 @@ app.post('/api/auth/token', async (req, res) => {
 app.get('/api/auth/:email', async (req, res) => {
     try {
         if (!verifyJwt(req)) {
-            return res.status(401).json(JSON.stringify({
+            return res.status(401).json({
                 status: 'KO',
                 error: 'Invalid JWT'
-            }));
+            });
         }
 
         const user = await getUserByEmail(res.params.email);
-        res.json(JSON.stringify({
+        res.json({
             email: user.email,
             permissions: user.permissions
-        }));
+        });
     } catch (e) {
-
+        console.log(e);
+        res.sendStatus(500);
     }
 });
 
@@ -108,15 +126,15 @@ app.get('/api/auth/:email', async (req, res) => {
 app.post('/api/auth/', async (req, res) => {
     try {
         await signup(req.body);
-        res.json(JSON.stringify({
+        res.json({
             status: 'OK',
             message: 'User created.'
-        }));
+        });
     } catch (e) {
-        res.status(400).json(JSON.stringify({
+        res.status(400).json({
             status: 'KO',
             error: e.message
-        }));
+        });
     }
 });
 
@@ -124,22 +142,22 @@ app.post('/api/auth/', async (req, res) => {
 app.patch('/api/auth/:email', async (req, res) => {
     try {
         if (!verifyJwt(req)) {
-            return res.status(401).json(JSON.stringify({
+            return res.status(401).json({
                 status: 'KO',
                 error: 'Invalid JWT'
-            }));
+            });
         }
 
         const email = req.params.email;
         await updateUser(email, req.body.email);
         const user = await getUserByEmail(req.body.email);
         const tokenPayload = composeJwt(user);
-        res.json(JSON.stringify(tokenPayload));
+        res.json(tokenPayload);
     } catch (e) {
-        res.status(400).json(JSON.stringify({
+        res.status(400).json({
             status: 'KO',
             error: e.message
-        }));
+        });
     }
 });
 
@@ -147,20 +165,20 @@ app.patch('/api/auth/:email', async (req, res) => {
 app.delete('/api/auth/:email', (req, res) => {
     try {
         if (!verifyJwt(req)) {
-            return res.status(401).json(JSON.stringify({
+            return res.status(401).json({
                 status: 'KO',
                 error: 'Invalid JWT'
-            }));
+            });
         }
 
         const email = req.params.email;
         deleteUser(email);
         res.sendStatus(204);
     } catch (e) {
-        res.status(400).json(JSON.stringify({
+        res.status(400).json({
             status: 'KO',
             error: e.message
-        }));
+        });
     }
 });
 

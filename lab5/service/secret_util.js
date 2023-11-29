@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { jwtDecode } = require('jwt-decode');
 
 function generateJwt({ email, permissions }) {
     return jwt.sign({ email, permissions }, process.env.TOKEN_SECRET, { expiresIn: 3600 });
@@ -19,8 +20,14 @@ function verifyJwt(request) {
     return jwt.verify(token, process.env.TOKEN_SECRET);
 }
 
+function verifyAdmin(request) {
+    let verify = verifyJwt(request);
+    return Boolean(verify) && verify.permissions.includes('ADMIN');
+}
+
 module.exports = {
     generateJwt,
     validateJwtCookie,
-    verifyJwt
+    verifyJwt,
+    verifyAdmin
 }
